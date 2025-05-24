@@ -120,3 +120,39 @@ FROM Autores
 WHERE AutorID IN (
 SELECT AutorID FROM Livros WHERE Preco > (SELECT AVG(Preco) FROM Livros)
 );
+
+-- Concat
+SELECT CONCAT(L.titulo, ' - ', A.nome) as Livro_Author
+FROM Livros L
+JOIN Autores A ON L.AutorID = A.AutorID;
+
+-- View 
+
+-- Create
+CREATE VIEW vw_VendasDetalhadas AS
+SELECT V.VendaID, L.titulo, A.nome As Autor, V.DataVenda, V.Quantidade
+FROM Vendas V
+JOIN Livros L ON V.LivroID = L.LivroID
+JOIN Autores A ON L.AutorID = A.AutorID
+
+-- Alter
+
+CREATE OR REPLACE VIEW vw_VendasDetalhadas AS
+SELECT V.VendaID, L.titulo, A.nome As Autor, V.DataVenda, V.Quantidade
+FROM Vendas V
+JOIN Livros L ON V.LivroID = L.LivroID
+JOIN Autores A ON L.AutorID = A.AutorID
+
+
+-- Select
+
+SELECT * FROM vw_VendasDetalhadas;
+
+
+
+-- Delete
+
+DROP VIEW vw_VendasDetalhadas;
+
+
+
